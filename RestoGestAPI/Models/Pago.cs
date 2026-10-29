@@ -1,14 +1,34 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace RestoGestAPI.Models
 {
+    [Table("PAGO")]
     public class Pago
     {
+        [Key]
+        [Column("id_pago")]
         public int IdPago { get; set; }
+
+        [Column("id_pedido")]
         public int IdPedido { get; set; }
-        public string MedioPago { get; set; } // ENUM('Efectivo', 'Tarjeta', 'Transferencia')
+
+        [Column("medio_pago")]
+        public string MedioPago { get; set; } = string.Empty; // ENUM('Efectivo', 'Tarjeta', 'Transferencia')
+
+        [Column("importe")]
         public decimal Importe { get; set; }
+
+        [Column("fecha_pago")]
         public DateTime FechaPago { get; set; }
-        public string Estado { get; set; } // ENUM('Valido', 'Anulado')
+
+        [Column("estado")]
+        public string Estado { get; set; } = "Valido"; // ENUM('Valido', 'Anulado')
+
+        [Column("id_usuario_anulacion")]
         public int? IdUsuarioAnulacion { get; set; }
+
+        [Column("fecha_anulacion")]
         public DateTime? FechaAnulacion { get; set; }
     }
 }

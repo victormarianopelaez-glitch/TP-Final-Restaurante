@@ -69,3 +69,4 @@ CREATE TABLE DETALLE_PEDIDO (
     precio_historico DECIMAL(10,2) NOT NULL,
     FOREIGN KEY (id_pedido) REFERENCES PEDIDO(id_pedido),
     FOREIGN KEY (id_producto) REFERENCES PRODUCTO(id_producto)
+);

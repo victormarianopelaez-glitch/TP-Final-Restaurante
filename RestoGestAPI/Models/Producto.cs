@@ -1,14 +1,34 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace RestoGestAPI.Models
 {
+    [Table("PRODUCTO")]
     public class Producto
     {
+        [Key]
+        [Column("id_producto")]
         public int IdProducto { get; set; }
+
+        [Column("id_categoria")]
         public int IdCategoria { get; set; }
-        public string Nombre { get; set; }
-        public string Descripcion { get; set; }
-        public decimal PrecioVigente { get; set; } 
-        public string ImagenRuta { get; set; }
-        public string Estado { get; set; } // ENUM('Disponible', 'Sin stock')
-        public bool Activo { get; set; }
+
+        [Column("nombre")]
+        public string Nombre { get; set; } = string.Empty;
+
+        [Column("descripcion")]
+        public string? Descripcion { get; set; }
+
+        [Column("precio_vigente")]
+        public decimal PrecioVigente { get; set; }
+
+        [Column("imagen_ruta")]
+        public string? ImagenRuta { get; set; }
+
+        [Column("estado")]
+        public string Estado { get; set; } = "Disponible"; // ENUM('Disponible', 'Sin stock')
+
+        [Column("activo")]
+        public bool Activo { get; set; } = true;
     }
 }

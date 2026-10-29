@@ -1,20 +1,24 @@
 using MySql.Data.MySqlClient;
+using Microsoft.EntityFrameworkCore;
+using RestoGestAPI.Models;
 
 namespace RestoGestAPI.Data
 {
-    public class DatabaseContext
+    public class DatabaseContext : DbContext
     {
-        private readonly string _connectionString;
 
-        public DatabaseContext(IConfiguration configuration)
+        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
 
-            _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public MySqlConnection GetConnection()
-        {
-            return new MySqlConnection(_connectionString);
-        }
+        public DbSet<Categoria> Categorias { get; set; }
+        public DbSet<Mesa> Mesas { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Pago> Pagos { get; set; }
+        public DbSet<Producto> Productos { get; set; }
+        public DbSet<Pedido> Pedidos { get; set; }
+        public DbSet<DetallePedido> DetallesPedido { get; set; }
+
     }
 }
