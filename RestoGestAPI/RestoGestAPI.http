@@ -1,6 +1,89 @@
 @RestoGestAPI_HostAddress = http://localhost:5041
+@token = REEMPLAZAR_CON_JWT_DEVUELTO_EN_LOGIN
 
-GET {{RestoGestAPI_HostAddress}}/weatherforecast/
-Accept: application/json
+### 1. Login como Administrador (Devuelve Token JWT)
+POST {{RestoGestAPI_HostAddress}}/api/auth/login
+Content-Type: application/json
 
-###
+{
+  "email": "admin@restogest.com",
+  "password": "123456"
+}
+
+### 2. Login como Mozo (Empleado)
+POST {{RestoGestAPI_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "mozo@restogest.com",
+  "password": "123456"
+}
+
+### 3. Obtener Perfil del Usuario Autenticado (JWT)
+GET {{RestoGestAPI_HostAddress}}/api/auth/me
+Authorization: Bearer {{token}}
+
+### 4. Listar Productos con Paginado por Servidor (Requerimiento 5)
+GET {{RestoGestAPI_HostAddress}}/api/productos?page=1&pageSize=6
+Authorization: Bearer {{token}}
+
+### 5. Búsqueda Asíncrona AJAX de Productos Disponibles para Comanda (Requerimiento 6)
+GET {{RestoGestAPI_HostAddress}}/api/productos/buscar?q=mila
+Authorization: Bearer {{token}}
+
+### 6. Estado del Salón de Mesas
+GET {{RestoGestAPI_HostAddress}}/api/mesas
+Authorization: Bearer {{token}}
+
+### 7. Abrir una Mesa Libre (Genera Pedido Abierto)
+POST {{RestoGestAPI_HostAddress}}/api/pedidos/abrir
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "idMesa": 2
+}
+
+### 8. Agregar Producto a Pedido Abierto (Congela Precio Histórico)
+POST {{RestoGestAPI_HostAddress}}/api/pedidos/1/detalles
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "idProducto": 1,
+  "cantidad": 2
+}
+
+### 9. Registrar Pago de un Pedido (Cierra Pedido y Libera Mesa)
+POST {{RestoGestAPI_HostAddress}}/api/pagos
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "idPedido": 1,
+  "medioPago": "Efectivo"
+}
+
+### 10. Anulación Lógica de Pedido con Auditoría (Exclusivo Rol Administrador)
+POST {{RestoGestAPI_HostAddress}}/api/pedidos/2/anular
+Authorization: Bearer {{token}}
+
+### 11. Informe 1: Productos agrupados por Categoría
+GET {{RestoGestAPI_HostAddress}}/api/informes/productos-por-categoria?estado=Disponible
+Authorization: Bearer {{token}}
+
+### 12. Informe 2: Productos más vendidos en los últimos X días
+GET {{RestoGestAPI_HostAddress}}/api/informes/mas-vendidos?dias=30
+Authorization: Bearer {{token}}
+
+### 13. Informe 3: Mesas ocupadas actualmente (tiempo y subtotal)
+GET {{RestoGestAPI_HostAddress}}/api/informes/mesas-ocupadas
+Authorization: Bearer {{token}}
+
+### 14. Informe 4: Recaudación total en rango de fechas (excluye anulados)
+GET {{RestoGestAPI_HostAddress}}/api/informes/recaudacion?desde=2026-01-01&hasta=2026-12-31
+Authorization: Bearer {{token}}
+
+### 15. Informe 5: Auditoría de Pedidos y Pagos Anulados (Exclusivo Rol Administrador)
+GET {{RestoGestAPI_HostAddress}}/api/informes/auditoria-anulaciones
+Authorization: Bearer {{token}}
