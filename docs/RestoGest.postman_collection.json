@@ -1,0 +1,101 @@
+{
+  "info": {
+    "name": "RestoGest API - Colección Oficial JWT",
+    "description": "Colección de pruebas de endpoints REST con autenticación JWT para RestoGest.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5041"
+    },
+    {
+      "key": "jwtToken",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Auth - Login Administrador",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/api/auth/login",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"admin@restogest.com\",\n  \"password\": \"123456\"\n}"
+        }
+      }
+    },
+    {
+      "name": "2. Productos - Paginado por Servidor",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwtToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/productos?page=1&pageSize=6"
+      }
+    },
+    {
+      "name": "3. Productos - Búsqueda Asíncrona AJAX (Comanda)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwtToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/productos/buscar?q=mila"
+      }
+    },
+    {
+      "name": "4. Pedidos - Historial Paginado por Servidor",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwtToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/pedidos?page=1&pageSize=6"
+      }
+    },
+    {
+      "name": "5. Pedidos - Anular Pedido (Exclusivo Admin)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwtToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/pedidos/2/anular"
+      }
+    },
+    {
+      "name": "6. Informes - Auditoría de Anulaciones (Exclusivo Admin)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwtToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/api/informes/auditoria-anulaciones"
+      }
+    }
+  ]
+}
