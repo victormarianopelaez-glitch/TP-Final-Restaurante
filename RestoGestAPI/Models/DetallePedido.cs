@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace RestoGestAPI.Models
 {
@@ -13,8 +14,15 @@ namespace RestoGestAPI.Models
         [Column("id_pedido")]
         public int IdPedido { get; set; }
 
+        [JsonIgnore]
+        [ForeignKey("IdPedido")]
+        public Pedido? Pedido { get; set; }
+
         [Column("id_producto")]
         public int IdProducto { get; set; }
+
+        [ForeignKey("IdProducto")]
+        public Producto? Producto { get; set; }
 
         [Column("cantidad")]
         public int Cantidad { get; set; }

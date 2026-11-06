@@ -13,6 +13,9 @@ namespace RestoGestAPI.Models
         [Column("id_pedido")]
         public int IdPedido { get; set; }
 
+        [ForeignKey("IdPedido")]
+        public Pedido? Pedido { get; set; }
+
         [Column("medio_pago")]
         public string MedioPago { get; set; } = string.Empty; // ENUM('Efectivo', 'Tarjeta', 'Transferencia')
 
@@ -27,6 +30,9 @@ namespace RestoGestAPI.Models
 
         [Column("id_usuario_anulacion")]
         public int? IdUsuarioAnulacion { get; set; }
+
+        [ForeignKey("IdUsuarioAnulacion")]
+        public Usuario? UsuarioAnulacion { get; set; }
 
         [Column("fecha_anulacion")]
         public DateTime? FechaAnulacion { get; set; }

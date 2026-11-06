@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace RestoGestAPI.Models
 {
@@ -10,18 +11,22 @@ namespace RestoGestAPI.Models
         [Column("id_usuario")]
         public int IdUsuario { get; set; }
 
+        [Required]
         [Column("nombre")]
         public string Nombre { get; set; } = string.Empty;
 
+        [Required]
         [Column("apellido")]
         public string Apellido { get; set; } = string.Empty;
 
         [Column("telefono")]
         public string? Telefono { get; set; }
 
+        [Required]
         [Column("email")]
         public string Email { get; set; } = string.Empty;
 
+        [JsonIgnore]
         [Column("password")]
         public string Password { get; set; } = string.Empty;
 

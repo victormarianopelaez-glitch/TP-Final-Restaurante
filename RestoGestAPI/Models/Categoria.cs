@@ -9,7 +9,7 @@ namespace RestoGestAPI.Models
         [Key]
         [Column("id_categoria")]
         public int IdCategoria { get; set; }
-
+        [Required]
         [Column("nombre")]
         public string Nombre { get; set; } = string.Empty;
 

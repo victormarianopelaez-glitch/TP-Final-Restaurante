@@ -13,6 +13,10 @@ namespace RestoGestAPI.Models
         [Column("id_categoria")]
         public int IdCategoria { get; set; }
 
+        [ForeignKey("IdCategoria")]
+        public Categoria? Categoria { get; set; }
+        
+        [Required]
         [Column("nombre")]
         public string Nombre { get; set; } = string.Empty;
 
